@@ -14,7 +14,7 @@ class ImagesSpider(scrapy.Spider):
 
     def __init__(self, url=None):
         if url is None:
-            raise "Error, URL is empty, Please use command: scrapy crawl images -a url=https://www.aliexpress.com/item/32948077843.html"
+            raise '"Error, URL is empty, Please use command: scrapy crawl images -a url="https://www.aliexpress.com/item/32948077843.html"'
         else:
             self.start_urls.append(url)
 
