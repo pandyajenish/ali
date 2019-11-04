@@ -6,6 +6,7 @@ import scrapy.statscollectors
 import scrapy.logformatter
 import scrapy.dupefilters
 import scrapy.squeues
+import scrapy.robotstxt
 
 import scrapy.extensions.spiderstate
 import scrapy.extensions.corestats

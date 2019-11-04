@@ -34,3 +34,10 @@ scrapy.exe crawl images -a url=https://www.aliexpress.com/item/32948077843.html 
     dist/crawl/crawl.exe https://www.aliexpress.com/item/32948077843.html   # 默认压缩图片
     dist/crawl/crawl.exe https://www.aliexpress.com/item/32948077843.html -n # 不压缩图片
     ````
+
+## 报错解决
+1. python 3.8 报错 `TypeError: an integer is required (got type bytes)`
+   - https://github.com/pyinstaller/pyinstaller/issues/4265#issuecomment-546221741
+    ```bash
+    pip install https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz
+    ```

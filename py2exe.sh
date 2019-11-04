@@ -5,8 +5,9 @@
 
 python -V
 
-
-ori_dir=/e/server/Python37-32/Lib/site-packages/scrapy   # scrapy 安装包所在目录
+py_path=`type python| awk '{print $NF}' | sed  -e 's/(//g' -e 's/)//g'`
+py_dir=`dirname $py_path`
+ori_dir="$py_dir/Lib/site-packages/scrapy"  # scrapy 安装包所在目录
 dist_dir=dist/crawl/scrapy   # 解决缺少 VERSION 的目录
 
 rm -rf "dist/crawl" && \
