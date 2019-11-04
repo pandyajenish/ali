@@ -3,8 +3,9 @@ import scrapy
 import re
 import json
 import urllib.request
-import os
 import time
+import os
+
 
 class ImagesSpider(scrapy.Spider):
     name = 'images'
@@ -12,11 +13,12 @@ class ImagesSpider(scrapy.Spider):
     # start_urls = ['https://www.aliexpress.com/item/32948077843.html']
     start_urls = []
 
-    def __init__(self, url=None):
+    def __init__(self, url=None, optimize_images=None):
         if url is None:
             raise '"Error, URL is empty, Please use command: scrapy crawl images -a url="https://www.aliexpress.com/item/32948077843.html"'
         else:
             self.start_urls.append(url)
+            self.optimize_images = optimize_images
 
     def parse(self, response):
         for sel in response.xpath('//script[contains(., "window.runParams")]/text()').extract():
@@ -43,6 +45,10 @@ class ImagesSpider(scrapy.Spider):
                 self.downloadImage(url, i, path)
                 i += 1
 
+            # 优化图片
+            if self.optimize_images != '-n':
+                self.optimizeimages(path)
+
     def downloadImage(self, url, index, path):
         # file name
         if index < 10:
@@ -53,3 +59,6 @@ class ImagesSpider(scrapy.Spider):
         filename = os.path.join(path, prefix + '-' + url.split('/')[-1])
         print(filename.replace('\\', '/'))
         urllib.request.urlretrieve(url, filename)
+
+    def optimizeimages(self, path):
+        os.system("optimize-images " + path)

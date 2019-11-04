@@ -60,11 +60,15 @@ from scrapy.core.downloader.handlers.ftp import FTPDownloadHandler
 from imagesAliexpress.spiders.images import ImagesSpider
 import sys
 
-if len(sys.argv) < 2:
+optimize_images = None
+args = sys.argv
+if len(args) < 2:
     raise "Error: url is empty,  please append it to the first argument. example: crawl.exe https://www.aliexpress.com/item/32948077843.html"
 else:
-    url = sys.argv[1]
+    url = args[1]
+    if len(args) > 2 and args[2] == '-n':
+        optimize_images = args[2]
 
 process = CrawlerProcess(get_project_settings())
-process.crawl(ImagesSpider, url)
+process.crawl(ImagesSpider, url, optimize_images)
 process.start()
