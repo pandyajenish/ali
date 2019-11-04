@@ -5,5 +5,5 @@
 ## usage
 
 ```bash
-scrapy crawl images
+scrapy crawl images -a url=aliexpress_product_url
 ```

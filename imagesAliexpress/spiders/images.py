@@ -9,7 +9,14 @@ import time
 class ImagesSpider(scrapy.Spider):
     name = 'images'
     allowed_domains = ['www.aliexpress.com']
-    start_urls = ['https://www.aliexpress.com/item/32948077843.html']
+    # start_urls = ['https://www.aliexpress.com/item/32948077843.html']
+    start_urls = []
+
+    def __init__(self, url=None):
+        if url is None:
+            raise "Error, URL is empty, Please use command: scrapy crawl images -a url=https://www.aliexpress.com/item/32948077843.html"
+        else:
+            self.start_urls.append(url)
 
     def parse(self, response):
         for sel in response.xpath('//script[contains(., "window.runParams")]/text()').extract():
@@ -44,4 +51,5 @@ class ImagesSpider(scrapy.Spider):
             prefix = str(index)
 
         filename = os.path.join(path, prefix + '-' + url.split('/')[-1])
+        print(filename.replace('\\', '/'))
         urllib.request.urlretrieve(url, filename)
